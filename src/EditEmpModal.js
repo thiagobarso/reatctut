@@ -3,7 +3,7 @@ import { Modal, Button, Row, Col, Form } from 'react-bootstrap';
 
 import { ButtonToolbar } from 'react-bootstrap';
 
-export class AddDepModal extends Component {
+export class EditEmpModal extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -11,15 +11,15 @@ export class AddDepModal extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch(process.env.REACT_APP_API + 'department', {
-            method: 'POST',
+        fetch(process.env.REACT_APP_API + 'employee', {
+            method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                DepartmentId: null,
-                DepartmentName: event.target.DepartmentName.value
+                EmployeeId: event.target.EmployeeId.value,
+                EmployeeName: event.target.EmployeeName.value
             })
 
         })
@@ -38,21 +38,26 @@ export class AddDepModal extends Component {
                 <Modal {...this.props} size="lg" aria-labelled-by="contained-modal-title-vcenter">
                     <Modal.Header closeButton>
                         <Modal.Title id="cotained-model-title-vcenter">
-                            Add Department
+                            Edit Employee
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Row>
                             <Col sm={6}>
                                 <Form onSubmit={this.handleSubmit}>
-                                    <Form.Group controlId='DepartmentName'>
-                                        <Form.Label>DepartmentName</Form.Label>
-                                        <Form.Control type="text" name="DepartmentName" required placeholder='DepartmentId' />
+                                    <Form.Group controlId='EmployeeId'>
+                                        <Form.Label>EmployeeId</Form.Label>
+                                        <Form.Control type="text" name="EmployeeId" disabled defaultValue={this.props.depid}  placeholder='EmployeeId' />
+                                    </Form.Group>
+
+                                    <Form.Group controlId='EmployeeName'>
+                                        <Form.Label>EmployeeName</Form.Label>
+                                        <Form.Control type="text" name="EmployeeName" required placeholder='EmployeeId' />
                                     </Form.Group>
 
                                     <Form.Group>
                                         <Button variant="primary" type="submit">
-                                            Add Department
+                                            Update Employee
                                         </Button>
                                     </Form.Group>
                                 </Form>
